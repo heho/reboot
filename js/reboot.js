@@ -10,26 +10,34 @@
       console.log('rebooted');
     }
 
+    reboot.prototype.tableColumnsToObject = function(table) {
+      var columns, values, _i, _len, _ref;
+      columns = {
+        head: [],
+        values: []
+      };
+      columns.head = $(table).find('thead th').map(function() {
+        return $(this).text().replace(/[\r\n]+/, '').trim();
+      });
+      _ref = columns.head;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        values = _ref[_i];
+        columns.values.push([]);
+      }
+      $(table).find('tbody tr').map(function() {
+        return $(this).find('td').each(function(index) {
+          return columns.values[index].push($(this).text().replace(/[\r\n]+/, '').trim());
+        });
+      });
+      return columns;
+    };
+
     reboot.prototype.rebootTableBarCharts = function() {
+      var that;
+      that = this;
       return $('table.table-chart-bar-horizontal').each(function() {
-        var columns, values, _i, _len, _ref;
-        columns = {
-          head: [],
-          values: []
-        };
-        columns.head = $(this).find('thead th').map(function() {
-          return $(this).text().replace(/[\r\n]+/, '').trim();
-        });
-        _ref = columns.head;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          values = _ref[_i];
-          columns.values.push([]);
-        }
-        $(this).find('tbody tr').map(function() {
-          return $(this).find('td').each(function(index) {
-            return columns.values[index].push($(this).text().replace(/[\r\n]+/, '').trim());
-          });
-        });
+        var columns;
+        columns = that.tableColumnsToObject(this);
         return console.log(columns);
       });
     };

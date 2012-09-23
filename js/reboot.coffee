@@ -4,19 +4,23 @@ class reboot
   constructor: ->
     console.log 'rebooted'
 
+  tableColumnsToObject: (table) ->
+    columns = {head: [], values: []}
+    #map each thead column to a columns.head[index]
+    columns.head = $(table).find('thead th').map -> $(this).text().replace(/[\r\n]+/,'').trim()
+
+    #map each tbody column to a columns.value[index]
+    columns.values.push [] for values in columns.head
+    $(table).find('tbody tr').map ->
+      $(this).find('td').each (index) ->
+        columns.values[index].push $(this).text().replace(/[\r\n]+/,'').trim()
+    columns
+
   rebootTableBarCharts: ->
+    that = this
     $('table.table-chart-bar-horizontal').each ->
-      columns = {head: [], values: []}
-      #map each thead column to a columns.head[index]
-      columns.head = $(this).find('thead th').map -> $(this).text().replace(/[\r\n]+/,'').trim()
-
-      #map each tbody column to a columns.value[index]
-      columns.values.push [] for values in columns.head
-      $(this).find('tbody tr').map ->
-        $(this).find('td').each (index) ->
-          columns.values[index].push $(this).text().replace(/[\r\n]+/,'').trim()
+      columns = that.tableColumnsToObject this
       console.log columns
-
 
 
 if not $?
