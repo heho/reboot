@@ -18,19 +18,29 @@ body {
 }
 
 .bar-horizontal-part {
-    border-color: rgba(0,0,0,.55) rgba(0,0,0,.55) rgba(0,0,0,.75);
+     border-style: solid;
+     border-width: 1px;
+     .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
+
+     &:hover {
+         .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+     }
+     text-align: center;
+ }
+
+.bar-horizontal-part-bottom {
     border-style: solid;
     border-width: 1px;
-    .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
+    .chartBackground(#aaa ,darken(#aaa, 4%) , #333, 0 1px 1px rgba(255,255,255,.75));
+    .rounded-bottom-corners(4px);
 
     &:hover {
-        .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+        .chartBackground(#bbb , darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
     }
     text-align: center;
 }
 
 .bar-horizontal-part-top {
-    border-color: rgba(0,0,0,.55) rgba(0,0,0,.55) rgba(0,0,0,.75);
     border-style: solid;
     border-width: 1px;
     .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
@@ -49,6 +59,21 @@ body {
 }
 
 .bar-horizontal-part:hover .text {
+    color: rgba(0,0,0,1);
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+.bar-horizontal-part-bottom .text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: rgba(0,0,0,0);
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+    .transition(~"all linear .3s");
+    bottom: 0px;
+}
+
+.bar-horizontal-part-bottom:hover .text {
     color: rgba(0,0,0,1);
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }

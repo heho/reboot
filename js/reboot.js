@@ -66,41 +66,49 @@
     };
 
     reboot.prototype.rebootTableBarCharts = function() {
-      var that;
-      that = this;
-      return $('table.table-chart-bar-horizontal:not(.rebooted)').each(function() {
-        var chart, columnSums, columns, counter, level, levelAddition, margin, newid, subarray, subtables, value, width, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
-        columns = that.tableColumnsToObject(this);
-        columnSums = [];
+      var makeNewIds, renderHorizontalBarChart, sumColumns, that;
+      sumColumns = function(columns) {
+        var subarray, sums, _i, _len, _ref;
+        sums = [];
         _ref = columns.values;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           subarray = _ref[_i];
           if (!that.checkArrayOnlyContainsNumbers(subarray)) {
             throw 'the table body contains cells that do not contain numbers';
           }
-          columnSums.push(that.arraySum(subarray));
+          sums.push(that.arraySum(subarray));
         }
-        console.log(columnSums);
-        if (!(this.id === "")) {
-          newid = "" + this.id + "-rebooted";
+        return sums;
+      };
+      makeNewIds = function(table) {
+        if (!(table.id === "")) {
+          return "" + table.id + "-rebooted";
         } else {
-          this.id = "table-source-chart-" + reboot.tables;
-          newid = "table-chart-bar-" + reboot.tables;
+          table.id = "table-source-chart-" + reboot.tables;
+          return "table-chart-bar-" + reboot.tables;
         }
-        width = 30;
-        margin = 5;
-        chart = "<div id=\"" + newid + "\" class=\"chart-bar-horizontal\" style=\"height: " + (Math.max.apply(0, columnSums)) + "px; width: " + (columns.head.length * (width + margin)) + "px\">";
+      };
+      renderHorizontalBarChart = function(attachment, columns, columnSums, id, width, margin) {
+        var chart, counter, endLevel, level, levelAddition, subtable, value, _i, _j, _len, _len1, _ref;
+        if (width == null) {
+          width = 30;
+        }
+        if (margin == null) {
+          margin = 5;
+        }
+        chart = "<div id=\"" + id + "\" class=\"chart-bar-horizontal\" style=\"height: " + (Math.max.apply(0, columnSums)) + "px; width: " + (columns.head.length * (width + margin)) + "px\">";
         counter = 0;
-        _ref1 = columns.values;
-        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-          subtables = _ref1[_j];
-          chart += "<div class=\"bar-horizontal\" style=\"width: " + width + "px; height: " + columnSums[counter] + "px; left: " + (counter * (width + margin)) + "px; bottom: 0px\">";
+        _ref = columns.values;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          subtable = _ref[_i];
+          chart += "<div class=\"bar-horizontal\" style=\"width: " + width + "px; height: " + columnSums[counter] + "px; left: " + (counter * (width + margin)) + "px; " + attachment + ": 0px\">";
           level = 0;
-          for (_k = 0, _len2 = subtables.length; _k < _len2; _k++) {
-            value = subtables[_k];
+          endLevel = attachment === 'bottom' ? 0 : subtable.length - 1;
+          for (_j = 0, _len1 = subtable.length; _j < _len1; _j++) {
+            value = subtable[_j];
             levelAddition = '';
-            if (level === 0) {
-              levelAddition = '-top';
+            if (level === endLevel) {
+              levelAddition = attachment === 'bottom' ? '-top' : '-bottom';
             }
             chart += "<div class=\"bar-horizontal-part" + levelAddition + "\" style=\"width: " + width + "px; height: " + value + "px;\"><div class=\"text\">" + value + "</div></div>";
             level++;
@@ -109,6 +117,25 @@
           counter++;
         }
         chart += "</div>";
+        return chart;
+      };
+      that = this;
+      $('table.htable-chart-bar-horizontal:not(.rebooted)').each(function() {
+        var chart, columnSums, columns, newid;
+        columns = that.tableColumnsToObject(this);
+        columnSums = sumColumns(columns);
+        newid = makeNewIds(this);
+        chart = renderHorizontalBarChart('bottom', columns, columnSums, newid);
+        $(chart).insertAfter($("#" + this.id));
+        $(this).addClass('hidden');
+        return reboot.tables++;
+      });
+      return $('table.htable-chart-bar-horizontal-inversed:not(.rebooted)').each(function() {
+        var chart, columnSums, columns, newid;
+        columns = that.tableColumnsToObject(this);
+        columnSums = sumColumns(columns);
+        newid = makeNewIds(this);
+        chart = renderHorizontalBarChart('top', columns, columnSums, newid);
         $(chart).insertAfter($("#" + this.id));
         $(this).addClass('hidden');
         return reboot.tables++;

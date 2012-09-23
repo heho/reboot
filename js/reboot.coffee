@@ -34,41 +34,64 @@ class reboot
     sum
 
   rebootTableBarCharts: ->
-    that = this
-    $('table.table-chart-bar-horizontal:not(.rebooted)').each ->
-      columns = that.tableColumnsToObject this
-      columnSums = []
+    sumColumns = (columns) ->
+      sums = []
       for subarray in columns.values
         if not that.checkArrayOnlyContainsNumbers subarray
           throw 'the table body contains cells that do not contain numbers'
-        columnSums.push that.arraySum subarray
+        sums.push that.arraySum subarray
+      sums
 
-      console.log columnSums
-
-      if !(this.id is "")
-        newid = "#{this.id}-rebooted"
+    makeNewIds = (table) ->
+      if !(table.id is "")
+        return "#{table.id}-rebooted"
       else
-        this.id = "table-source-chart-#{reboot.tables}"
-        newid = "table-chart-bar-#{reboot.tables}"
+        table.id = "table-source-chart-#{reboot.tables}"
+        return "table-chart-bar-#{reboot.tables}"
 
-      width = 30
-      margin = 5
-
-      chart = "<div id=\"#{newid}\" class=\"chart-bar-horizontal\" style=\"height: #{Math.max.apply(0, columnSums)}px; width: #{columns.head.length*(width+margin)}px\">"
+    renderHorizontalBarChart = (attachment, columns, columnSums, id, width = 30, margin = 5) ->
+      chart ="<div id=\"#{id}\" class=\"chart-bar-horizontal\" style=\"height: #{Math.max.apply(0, columnSums)}px; width: #{columns.head.length*(width+margin)}px\">"
       counter = 0
-      for subtables in columns.values
-        chart += "<div class=\"bar-horizontal\" style=\"width: #{width}px; height: #{columnSums[counter]}px; left: #{counter*(width+margin)}px; bottom: 0px\">"
+      for subtable in columns.values
+        chart += "<div class=\"bar-horizontal\" style=\"width: #{width}px; height: #{columnSums[counter]}px; left: #{counter*(width+margin)}px; #{attachment}: 0px\">"
 
         level = 0
-        for value in subtables
+        endLevel = if attachment is 'bottom' then 0 else subtable.length-1
+        for value in subtable
           levelAddition = ''
-          levelAddition = '-top' if level is 0
+          if level is endLevel
+            levelAddition = if attachment is 'bottom' then '-top' else '-bottom'
+
           chart += "<div class=\"bar-horizontal-part#{levelAddition}\" style=\"width: #{width}px; height: #{value}px;\"><div class=\"text\">#{value}</div></div>"
           level++
 
         chart += "</div>"
         counter++
       chart += "</div>"
+      chart
+
+    that = this
+
+    $('table.htable-chart-bar-horizontal:not(.rebooted)').each ->
+      columns = that.tableColumnsToObject this
+      columnSums = sumColumns(columns)
+
+      newid = makeNewIds this
+
+      chart = renderHorizontalBarChart 'bottom', columns, columnSums, newid
+
+      $(chart).insertAfter $("##{this.id}")
+      $(this).addClass('hidden')
+
+      reboot.tables++
+
+    $('table.htable-chart-bar-horizontal-inversed:not(.rebooted)').each ->
+      columns = that.tableColumnsToObject this
+      columnSums = sumColumns(columns)
+
+      newid = makeNewIds this
+
+      chart = renderHorizontalBarChart 'top', columns, columnSums, newid
 
       $(chart).insertAfter $("##{this.id}")
       $(this).addClass('hidden')
