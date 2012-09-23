@@ -6,6 +6,8 @@
 
   reboot = (function() {
 
+    reboot.tables = 0;
+
     function reboot() {
       console.log('rebooted');
     }
@@ -32,13 +34,83 @@
       return columns;
     };
 
+    reboot.prototype.isNumber = function(value) {
+      if (void 0 === value || null === value) {
+        return false;
+      }
+      if (typeof value === 'number') {
+        return true;
+      }
+      return !isNaN(value - 0);
+    };
+
+    reboot.prototype.checkArrayOnlyContainsNumbers = function(array) {
+      var value, _i, _len;
+      for (_i = 0, _len = array.length; _i < _len; _i++) {
+        value = array[_i];
+        if (!this.isNumber(value)) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    reboot.prototype.arraySum = function(array) {
+      var sum, value, _i, _len;
+      sum = 0;
+      for (_i = 0, _len = array.length; _i < _len; _i++) {
+        value = array[_i];
+        sum += value - 0;
+      }
+      return sum;
+    };
+
     reboot.prototype.rebootTableBarCharts = function() {
       var that;
       that = this;
-      return $('table.table-chart-bar-horizontal').each(function() {
-        var columns;
+      return $('table.table-chart-bar-horizontal:not(.rebooted)').each(function() {
+        var chart, columnSums, columns, counter, level, levelAddition, margin, newid, subarray, subtables, value, width, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
         columns = that.tableColumnsToObject(this);
-        return console.log(columns);
+        columnSums = [];
+        _ref = columns.values;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          subarray = _ref[_i];
+          if (!that.checkArrayOnlyContainsNumbers(subarray)) {
+            throw 'the table body contains cells that do not contain numbers';
+          }
+          columnSums.push(that.arraySum(subarray));
+        }
+        console.log(columnSums);
+        if (!(this.id === "")) {
+          newid = "" + this.id + "-rebooted";
+        } else {
+          this.id = "table-source-chart-" + reboot.tables;
+          newid = "table-chart-bar-" + reboot.tables;
+        }
+        width = 30;
+        margin = 5;
+        chart = "<div id=\"" + newid + "\" class=\"chart-bar-horizontal\" style=\"height: " + (Math.max.apply(0, columnSums)) + "px; width: " + (columns.head.length * (width + margin)) + "px\">";
+        counter = 0;
+        _ref1 = columns.values;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          subtables = _ref1[_j];
+          chart += "<div class=\"bar-horizontal\" style=\"width: " + width + "px; height: " + columnSums[counter] + "px; left: " + (counter * (width + margin)) + "px; bottom: 0px\">";
+          level = 0;
+          for (_k = 0, _len2 = subtables.length; _k < _len2; _k++) {
+            value = subtables[_k];
+            levelAddition = '';
+            if (level === 0) {
+              levelAddition = '-top';
+            }
+            chart += "<div class=\"bar-horizontal-part" + levelAddition + "\" style=\"width: " + width + "px; height: " + value + "px;\"></div>";
+            level++;
+          }
+          chart += "</div>";
+          counter++;
+        }
+        chart += "</div>";
+        $(chart).insertAfter($("#" + this.id));
+        return reboot.tables++;
       });
     };
 
@@ -53,7 +125,11 @@
     $(document).ready(function() {
       var rebooter;
       rebooter = new reboot;
-      return rebooter.rebootTableBarCharts();
+      try {
+        return rebooter.rebootTableBarCharts();
+      } catch (e) {
+        return console.log(e);
+      }
     });
   }
 

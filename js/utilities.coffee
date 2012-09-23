@@ -1,0 +1,3 @@
+root = window ? global
+
+utilities= ->
