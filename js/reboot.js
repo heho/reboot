@@ -102,7 +102,7 @@
             if (level === 0) {
               levelAddition = '-top';
             }
-            chart += "<div class=\"bar-horizontal-part" + levelAddition + "\" style=\"width: " + width + "px; height: " + value + "px;\"></div>";
+            chart += "<div class=\"bar-horizontal-part" + levelAddition + "\" style=\"width: " + width + "px; height: " + value + "px;\"><div class=\"text\">" + value + "</div></div>";
             level++;
           }
           chart += "</div>";
@@ -110,6 +110,7 @@
         }
         chart += "</div>";
         $(chart).insertAfter($("#" + this.id));
+        $(this).addClass('hidden');
         return reboot.tables++;
       });
     };
