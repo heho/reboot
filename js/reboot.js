@@ -66,7 +66,8 @@
     };
 
     reboot.prototype.rebootTableBarCharts = function() {
-      var makeNewIds, renderHorizontalBarChart, sumColumns, that;
+      var makeNewIds, renderBarChart, sumColumns, that;
+      that = this;
       sumColumns = function(columns) {
         var subarray, sums, _i, _len, _ref;
         sums = [];
@@ -88,57 +89,72 @@
           return "table-chart-bar-" + reboot.tables;
         }
       };
-      renderHorizontalBarChart = function(attachment, columns, columnSums, id, width, margin) {
-        var chart, counter, endLevel, level, levelAddition, subtable, value, _i, _j, _len, _len1, _ref;
+      renderBarChart = function(attachment, table, width, margin) {
+        var chart, classPart1, classPart2, columnSums, columns, counter, endLevel, id, level, levelAddition, styleColumn, styleColumn1, styleColumn2, styleContainer, stylePart, subtable, value, _i, _j, _len, _len1, _ref;
         if (width == null) {
           width = 30;
         }
         if (margin == null) {
           margin = 5;
         }
-        chart = "<div id=\"" + id + "\" class=\"chart-bar-horizontal\" style=\"height: " + (Math.max.apply(0, columnSums)) + "px; width: " + (columns.head.length * (width + margin)) + "px\">";
+        if (!(attachment === 'bottom' || attachment === 'top' || attachment === 'left' || attachment === 'right')) {
+          throw 'attachment must be either bottom, top, left or right';
+        }
+        columns = that.tableColumnsToObject(table);
+        columnSums = sumColumns(columns);
+        id = makeNewIds(table);
+        classPart1 = attachment === 'bottom' || attachment === 'top' ? 'bar-horizontal' : 'bar-vertical';
+        classPart2 = attachment;
+        styleContainer = '';
+        styleColumn = '';
+        stylePart = '';
+        if (attachment === 'left' || attachment === 'right') {
+          styleContainer = "width: " + (Math.max.apply(0, columnSums)) + "px; height: " + (columns.head.length * (width + margin)) + "px";
+          styleColumn1 = "height: " + width + "px; width:";
+          styleColumn2 = "top:";
+          stylePart = "position: relative; display:inline-block; height: " + width + "px; width:";
+        } else {
+          styleContainer = "height: " + (Math.max.apply(0, columnSums)) + "px; width: " + (columns.head.length * (width + margin)) + "px";
+          styleColumn1 = "width: " + width + "px; height:";
+          styleColumn2 = "left:";
+          stylePart = "width: " + width + "px; height:";
+        }
+        chart = "<div id=\"" + id + "\" class=\"chart-" + classPart1 + "\" style=\"" + styleContainer + "\">";
         counter = 0;
         _ref = columns.values;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           subtable = _ref[_i];
-          chart += "<div class=\"bar-horizontal\" style=\"width: " + width + "px; height: " + columnSums[counter] + "px; left: " + (counter * (width + margin)) + "px; " + attachment + ": 0px\">";
+          chart += "<div class=\"" + classPart1 + "\" style=\"" + styleColumn1 + " " + (columnSums[counter] + 10) + "px; " + styleColumn2 + " " + (counter * (width + margin)) + "px; " + attachment + ": 0px\">";
           level = 0;
-          endLevel = attachment === 'bottom' ? 0 : subtable.length - 1;
+          endLevel = attachment === 'bottom' || attachment === 'right' ? 0 : subtable.length - 1;
           for (_j = 0, _len1 = subtable.length; _j < _len1; _j++) {
             value = subtable[_j];
             levelAddition = '';
             if (level === endLevel) {
-              levelAddition = attachment === 'bottom' ? '-top' : '-bottom';
+              levelAddition = '-head';
             }
-            chart += "<div class=\"bar-horizontal-part" + levelAddition + "\" style=\"width: " + width + "px; height: " + value + "px;\"><div class=\"text\">" + value + "</div></div>";
+            chart += "<div class=\"" + classPart1 + "-part-" + classPart2 + levelAddition + "\" style=\"" + stylePart + " " + value + "px\"><div class=\"text\">" + value + "</div></div>";
             level++;
           }
           chart += "</div>";
           counter++;
         }
         chart += "</div>";
-        return chart;
+        $(chart).insertAfter($("#" + table.id));
+        $(table).addClass('hidden');
+        return reboot.tables++;
       };
-      that = this;
       $('table.htable-chart-bar-horizontal:not(.rebooted)').each(function() {
-        var chart, columnSums, columns, newid;
-        columns = that.tableColumnsToObject(this);
-        columnSums = sumColumns(columns);
-        newid = makeNewIds(this);
-        chart = renderHorizontalBarChart('bottom', columns, columnSums, newid);
-        $(chart).insertAfter($("#" + this.id));
-        $(this).addClass('hidden');
-        return reboot.tables++;
+        return renderBarChart('bottom', this);
       });
-      return $('table.htable-chart-bar-horizontal-inversed:not(.rebooted)').each(function() {
-        var chart, columnSums, columns, newid;
-        columns = that.tableColumnsToObject(this);
-        columnSums = sumColumns(columns);
-        newid = makeNewIds(this);
-        chart = renderHorizontalBarChart('top', columns, columnSums, newid);
-        $(chart).insertAfter($("#" + this.id));
-        $(this).addClass('hidden');
-        return reboot.tables++;
+      $('table.htable-chart-bar-horizontal-inversed:not(.rebooted)').each(function() {
+        return renderBarChart('top', this);
+      });
+      $('table.htable-chart-bar-vertical:not(.rebooted)').each(function() {
+        return renderBarChart('left', this);
+      });
+      return $('table.htable-chart-bar-vertical-inversed:not(.rebooted)').each(function() {
+        return renderBarChart('right', this);
       });
     };
 

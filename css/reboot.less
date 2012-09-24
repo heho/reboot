@@ -13,43 +13,157 @@ body {
     margin: 10px;
 }
 
+.chart-bar-vertical {
+    display: inline-table;
+    position: relative;
+    margin: 10px;
+}
+
 .bar-horizontal {
     position: absolute;
 }
 
-.bar-horizontal-part {
-     border-style: solid;
-     border-width: 1px;
-     .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
-
-     &:hover {
-         .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
-     }
-     text-align: center;
- }
-
-.bar-horizontal-part-bottom {
-    border-style: solid;
-    border-width: 1px;
-    .chartBackground(#aaa ,darken(#aaa, 4%) , #333, 0 1px 1px rgba(255,255,255,.75));
-    .rounded-bottom-corners(4px);
-
-    &:hover {
-        .chartBackground(#bbb , darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
-    }
-    text-align: center;
+.bar-vertical {
+    position: absolute;
 }
 
-.bar-horizontal-part-top {
-    border-style: solid;
-    border-width: 1px;
-    .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
-    .rounded-top-corners(4px);
-
-    &:hover {
-        .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+.bar-horizontal-part {
+    .super () {
+        border-style: solid;
+        border-width: 1px;
+        text-align: center;
     }
-    text-align: center;
+
+    &-bottom {
+        .super2 () {
+            .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
+            .super;
+        }
+        .super2;
+
+        .text {
+            color: rgba(0,0,0,0);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+            .transition(~"all linear .3s");
+        }
+
+        &:hover .text {
+            color: rgba(0,0,0,1);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        }
+
+        &-head {
+            .super2;
+            .rounded-top-corners(4px);
+
+            .text {
+                color: rgba(0,0,0,0);
+                text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+                .transition(~"all linear .3s");
+            }
+
+            &:hover .text {
+                color: rgba(0,0,0,1);
+                text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+            }
+
+            &:hover {
+                .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+            }
+        }
+        &:hover {
+            .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+        }
+    }
+
+    &-top {
+        .super2 () {
+            .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
+            .super
+        }
+        .super2;
+
+        .text {
+            color: rgba(0,0,0,0);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+            .transition(~"all linear .3s");
+        }
+
+        &:hover .text {
+            color: rgba(0,0,0,1);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        }
+
+        &-head {
+            .super2;
+            .rounded-bottom-corners(4px);
+
+            .text {
+                color: rgba(0,0,0,0);
+                text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+                .transition(~"all linear .3s");
+            }
+
+            &:hover .text {
+                color: rgba(0,0,0,1);
+                text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+            }
+
+            &:hover {
+                .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+            }
+        }
+        &:hover {
+            .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+        }
+    }
+}
+
+.bar-vertical-part {
+    .super () {
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    &-left {
+        .super2 () {
+            .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
+            text-align: right;
+            .super;
+        }
+        .super2;
+
+        &-head {
+            .super2;
+            .rounded-right-corners(4px);
+            &:hover {
+                .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+            }
+        }
+        &:hover {
+            .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+        }
+    }
+
+    &-right {
+        .super2 () {
+            .chartBackground(#aaa, darken(#aaa, 4%), #333, 0 1px 1px rgba(255,255,255,.75));
+            text-align: left;
+            .super
+        }
+        .super2;
+
+        &-head {
+            .super2;
+            .rounded-left-corners(4px);
+            &:hover {
+                .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+            }
+        }
+        &:hover {
+            .chartBackground(#bbb, darken(#cca, 8%), #333, 0 1px 1px rgba(255,255,255,.75));
+        }
+    }
 }
 
 .bar-horizontal-part .text {

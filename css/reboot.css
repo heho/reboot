@@ -9,12 +9,18 @@ body {
   position: relative;
   margin: 10px;
 }
+.chart-bar-vertical {
+  display: inline-table;
+  position: relative;
+  margin: 10px;
+}
 .bar-horizontal {
   position: absolute;
 }
-.bar-horizontal-part {
-  border-style: solid;
-  border-width: 1px;
+.bar-vertical {
+  position: absolute;
+}
+.bar-horizontal-part-bottom {
   color: #333333;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   background-color: #a6a6a6;
@@ -31,22 +37,88 @@ body {
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
 
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border-style: solid;
+  border-width: 1px;
   text-align: center;
 }
-.bar-horizontal-part:hover,
-.bar-horizontal-part:active,
-.bar-horizontal-part.active,
-.bar-horizontal-part.disabled,
-.bar-horizontal-part[disabled] {
+.bar-horizontal-part-bottom:hover,
+.bar-horizontal-part-bottom:active,
+.bar-horizontal-part-bottom.active,
+.bar-horizontal-part-bottom.disabled,
+.bar-horizontal-part-bottom[disabled] {
   color: #333333;
   background-color: #a0a0a0;
   *background-color: #939393;
 }
-.bar-horizontal-part:active,
-.bar-horizontal-part.active {
+.bar-horizontal-part-bottom:active,
+.bar-horizontal-part-bottom.active {
   background-color: #868686;
 }
-.bar-horizontal-part:hover {
+.bar-horizontal-part-bottom .text {
+  color: rgba(0, 0, 0, 0);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+  -webkit-transition: all linear .3s;
+  -moz-transition: all linear .3s;
+  -o-transition: all linear .3s;
+  transition: all linear .3s;
+}
+.bar-horizontal-part-bottom:hover .text {
+  color: #000000;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+.bar-horizontal-part-bottom-head {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #a6a6a6;
+  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
+  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #a0a0a0;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.bar-horizontal-part-bottom-head:hover,
+.bar-horizontal-part-bottom-head:active,
+.bar-horizontal-part-bottom-head.active,
+.bar-horizontal-part-bottom-head.disabled,
+.bar-horizontal-part-bottom-head[disabled] {
+  color: #333333;
+  background-color: #a0a0a0;
+  *background-color: #939393;
+}
+.bar-horizontal-part-bottom-head:active,
+.bar-horizontal-part-bottom-head.active {
+  background-color: #868686;
+}
+.bar-horizontal-part-bottom-head .text {
+  color: rgba(0, 0, 0, 0);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+  -webkit-transition: all linear .3s;
+  -moz-transition: all linear .3s;
+  -o-transition: all linear .3s;
+  transition: all linear .3s;
+}
+.bar-horizontal-part-bottom-head:hover .text {
+  color: #000000;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+.bar-horizontal-part-bottom-head:hover {
   color: #333333;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   background-color: #bcbcaa;
@@ -64,58 +136,18 @@ body {
 
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-.bar-horizontal-part:hover:hover,
-.bar-horizontal-part:hover:active,
-.bar-horizontal-part:hover.active,
-.bar-horizontal-part:hover.disabled,
-.bar-horizontal-part:hover[disabled] {
+.bar-horizontal-part-bottom-head:hover:hover,
+.bar-horizontal-part-bottom-head:hover:active,
+.bar-horizontal-part-bottom-head:hover.active,
+.bar-horizontal-part-bottom-head:hover.disabled,
+.bar-horizontal-part-bottom-head:hover[disabled] {
   color: #333333;
   background-color: #bdbd91;
   *background-color: #b3b381;
 }
-.bar-horizontal-part:hover:active,
-.bar-horizontal-part:hover.active {
+.bar-horizontal-part-bottom-head:hover:active,
+.bar-horizontal-part-bottom-head:hover.active {
   background-color: #aaaa71;
-}
-.bar-horizontal-part-bottom {
-  border-style: solid;
-  border-width: 1px;
-  color: #333333;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  background-color: #a6a6a6;
-  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
-  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
-  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
-  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
-  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #a0a0a0;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  -webkit-border-bottom-left-radius: 4px;
-  -webkit-border-bottom-right-radius: 4px;
-  -moz-border-radius-bottomleft: 4px;
-  -moz-border-radius-bottomright: 4px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  text-align: center;
-}
-.bar-horizontal-part-bottom:hover,
-.bar-horizontal-part-bottom:active,
-.bar-horizontal-part-bottom.active,
-.bar-horizontal-part-bottom.disabled,
-.bar-horizontal-part-bottom[disabled] {
-  color: #333333;
-  background-color: #a0a0a0;
-  *background-color: #939393;
-}
-.bar-horizontal-part-bottom:active,
-.bar-horizontal-part-bottom.active {
-  background-color: #868686;
 }
 .bar-horizontal-part-bottom:hover {
   color: #333333;
@@ -149,8 +181,6 @@ body {
   background-color: #aaaa71;
 }
 .bar-horizontal-part-top {
-  border-style: solid;
-  border-width: 1px;
   color: #333333;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   background-color: #a6a6a6;
@@ -167,12 +197,8 @@ body {
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
 
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  -webkit-border-top-left-radius: 4px;
-  -webkit-border-top-right-radius: 4px;
-  -moz-border-radius-topleft: 4px;
-  -moz-border-radius-topright: 4px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
   text-align: center;
 }
 .bar-horizontal-part-top:hover,
@@ -187,6 +213,101 @@ body {
 .bar-horizontal-part-top:active,
 .bar-horizontal-part-top.active {
   background-color: #868686;
+}
+.bar-horizontal-part-top .text {
+  color: rgba(0, 0, 0, 0);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+  -webkit-transition: all linear .3s;
+  -moz-transition: all linear .3s;
+  -o-transition: all linear .3s;
+  transition: all linear .3s;
+}
+.bar-horizontal-part-top:hover .text {
+  color: #000000;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+.bar-horizontal-part-top-head {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #a6a6a6;
+  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
+  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #a0a0a0;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.bar-horizontal-part-top-head:hover,
+.bar-horizontal-part-top-head:active,
+.bar-horizontal-part-top-head.active,
+.bar-horizontal-part-top-head.disabled,
+.bar-horizontal-part-top-head[disabled] {
+  color: #333333;
+  background-color: #a0a0a0;
+  *background-color: #939393;
+}
+.bar-horizontal-part-top-head:active,
+.bar-horizontal-part-top-head.active {
+  background-color: #868686;
+}
+.bar-horizontal-part-top-head .text {
+  color: rgba(0, 0, 0, 0);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0);
+  -webkit-transition: all linear .3s;
+  -moz-transition: all linear .3s;
+  -o-transition: all linear .3s;
+  transition: all linear .3s;
+}
+.bar-horizontal-part-top-head:hover .text {
+  color: #000000;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+.bar-horizontal-part-top-head:hover {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #bcbcaa;
+  background-image: -moz-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbbbbb), to(#bdbd91));
+  background-image: -webkit-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -o-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: linear-gradient(to bottom, #bbbbbb, #bdbd91);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbbbbbb', endColorstr='#ffbdbd91', GradientType=0);
+  border-color: #bdbd91 #bdbd91 #a0a061;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bdbd91;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.bar-horizontal-part-top-head:hover:hover,
+.bar-horizontal-part-top-head:hover:active,
+.bar-horizontal-part-top-head:hover.active,
+.bar-horizontal-part-top-head:hover.disabled,
+.bar-horizontal-part-top-head:hover[disabled] {
+  color: #333333;
+  background-color: #bdbd91;
+  *background-color: #b3b381;
+}
+.bar-horizontal-part-top-head:hover:active,
+.bar-horizontal-part-top-head:hover.active {
+  background-color: #aaaa71;
 }
 .bar-horizontal-part-top:hover {
   color: #333333;
@@ -217,6 +338,278 @@ body {
 }
 .bar-horizontal-part-top:hover:active,
 .bar-horizontal-part-top:hover.active {
+  background-color: #aaaa71;
+}
+.bar-vertical-part-left {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #a6a6a6;
+  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
+  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #a0a0a0;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  text-align: right;
+  border-style: solid;
+  border-width: 1px;
+}
+.bar-vertical-part-left:hover,
+.bar-vertical-part-left:active,
+.bar-vertical-part-left.active,
+.bar-vertical-part-left.disabled,
+.bar-vertical-part-left[disabled] {
+  color: #333333;
+  background-color: #a0a0a0;
+  *background-color: #939393;
+}
+.bar-vertical-part-left:active,
+.bar-vertical-part-left.active {
+  background-color: #868686;
+}
+.bar-vertical-part-left-head {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #a6a6a6;
+  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
+  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #a0a0a0;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  text-align: right;
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.bar-vertical-part-left-head:hover,
+.bar-vertical-part-left-head:active,
+.bar-vertical-part-left-head.active,
+.bar-vertical-part-left-head.disabled,
+.bar-vertical-part-left-head[disabled] {
+  color: #333333;
+  background-color: #a0a0a0;
+  *background-color: #939393;
+}
+.bar-vertical-part-left-head:active,
+.bar-vertical-part-left-head.active {
+  background-color: #868686;
+}
+.bar-vertical-part-left-head:hover {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #bcbcaa;
+  background-image: -moz-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbbbbb), to(#bdbd91));
+  background-image: -webkit-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -o-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: linear-gradient(to bottom, #bbbbbb, #bdbd91);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbbbbbb', endColorstr='#ffbdbd91', GradientType=0);
+  border-color: #bdbd91 #bdbd91 #a0a061;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bdbd91;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.bar-vertical-part-left-head:hover:hover,
+.bar-vertical-part-left-head:hover:active,
+.bar-vertical-part-left-head:hover.active,
+.bar-vertical-part-left-head:hover.disabled,
+.bar-vertical-part-left-head:hover[disabled] {
+  color: #333333;
+  background-color: #bdbd91;
+  *background-color: #b3b381;
+}
+.bar-vertical-part-left-head:hover:active,
+.bar-vertical-part-left-head:hover.active {
+  background-color: #aaaa71;
+}
+.bar-vertical-part-left:hover {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #bcbcaa;
+  background-image: -moz-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbbbbb), to(#bdbd91));
+  background-image: -webkit-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -o-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: linear-gradient(to bottom, #bbbbbb, #bdbd91);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbbbbbb', endColorstr='#ffbdbd91', GradientType=0);
+  border-color: #bdbd91 #bdbd91 #a0a061;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bdbd91;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.bar-vertical-part-left:hover:hover,
+.bar-vertical-part-left:hover:active,
+.bar-vertical-part-left:hover.active,
+.bar-vertical-part-left:hover.disabled,
+.bar-vertical-part-left:hover[disabled] {
+  color: #333333;
+  background-color: #bdbd91;
+  *background-color: #b3b381;
+}
+.bar-vertical-part-left:hover:active,
+.bar-vertical-part-left:hover.active {
+  background-color: #aaaa71;
+}
+.bar-vertical-part-right {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #a6a6a6;
+  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
+  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #a0a0a0;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  text-align: left;
+  border-style: solid;
+  border-width: 1px;
+}
+.bar-vertical-part-right:hover,
+.bar-vertical-part-right:active,
+.bar-vertical-part-right.active,
+.bar-vertical-part-right.disabled,
+.bar-vertical-part-right[disabled] {
+  color: #333333;
+  background-color: #a0a0a0;
+  *background-color: #939393;
+}
+.bar-vertical-part-right:active,
+.bar-vertical-part-right.active {
+  background-color: #868686;
+}
+.bar-vertical-part-right-head {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #a6a6a6;
+  background-image: -moz-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#a0a0a0));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: -o-linear-gradient(top, #aaaaaa, #a0a0a0);
+  background-image: linear-gradient(to bottom, #aaaaaa, #a0a0a0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaaaaaa', endColorstr='#ffa0a0a0', GradientType=0);
+  border-color: #a0a0a0 #a0a0a0 #7a7a7a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #a0a0a0;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  text-align: left;
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.bar-vertical-part-right-head:hover,
+.bar-vertical-part-right-head:active,
+.bar-vertical-part-right-head.active,
+.bar-vertical-part-right-head.disabled,
+.bar-vertical-part-right-head[disabled] {
+  color: #333333;
+  background-color: #a0a0a0;
+  *background-color: #939393;
+}
+.bar-vertical-part-right-head:active,
+.bar-vertical-part-right-head.active {
+  background-color: #868686;
+}
+.bar-vertical-part-right-head:hover {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #bcbcaa;
+  background-image: -moz-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbbbbb), to(#bdbd91));
+  background-image: -webkit-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -o-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: linear-gradient(to bottom, #bbbbbb, #bdbd91);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbbbbbb', endColorstr='#ffbdbd91', GradientType=0);
+  border-color: #bdbd91 #bdbd91 #a0a061;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bdbd91;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.bar-vertical-part-right-head:hover:hover,
+.bar-vertical-part-right-head:hover:active,
+.bar-vertical-part-right-head:hover.active,
+.bar-vertical-part-right-head:hover.disabled,
+.bar-vertical-part-right-head:hover[disabled] {
+  color: #333333;
+  background-color: #bdbd91;
+  *background-color: #b3b381;
+}
+.bar-vertical-part-right-head:hover:active,
+.bar-vertical-part-right-head:hover.active {
+  background-color: #aaaa71;
+}
+.bar-vertical-part-right:hover {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #bcbcaa;
+  background-image: -moz-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbbbbb), to(#bdbd91));
+  background-image: -webkit-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: -o-linear-gradient(top, #bbbbbb, #bdbd91);
+  background-image: linear-gradient(to bottom, #bbbbbb, #bdbd91);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbbbbbb', endColorstr='#ffbdbd91', GradientType=0);
+  border-color: #bdbd91 #bdbd91 #a0a061;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bdbd91;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.bar-vertical-part-right:hover:hover,
+.bar-vertical-part-right:hover:active,
+.bar-vertical-part-right:hover.active,
+.bar-vertical-part-right:hover.disabled,
+.bar-vertical-part-right:hover[disabled] {
+  color: #333333;
+  background-color: #bdbd91;
+  *background-color: #b3b381;
+}
+.bar-vertical-part-right:hover:active,
+.bar-vertical-part-right:hover.active {
   background-color: #aaaa71;
 }
 .bar-horizontal-part .text {
